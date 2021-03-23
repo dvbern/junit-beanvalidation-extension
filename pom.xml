@@ -22,7 +22,7 @@
 	<parent>
 		<groupId>ch.dvbern.oss.maven</groupId>
 		<artifactId>parent</artifactId>
-		<version>3.0.2</version>
+		<version>3.0.3-SNAPSHOT</version>
 	</parent>
 
 	<groupId>ch.dvbern.oss</groupId>
@@ -87,4 +87,19 @@
 		</dependency>
 	</dependencies>
 
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>${maven-javadoc-plugin.version}</version>
+					<configuration>
+						<doclint>none</doclint>
+						<detectJavaApiLink>false</detectJavaApiLink>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
 </project>
