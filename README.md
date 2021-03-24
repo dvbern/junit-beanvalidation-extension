@@ -1,6 +1,6 @@
 # junit-beanvalidation-extension
 
-Allow for easy injection and customization of a Java BeanValidation Validator into your tests.
+Allow for easy injection (and optionally: customization) of a Java BeanValidation Validator into your tests.
 
 This enables you to use ConstraintValidators that need special setup (like e.g. Mocks).
 
@@ -64,7 +64,26 @@ beanvalidation work:
 
 ## Basic Usage
 
-... and that is also all there is to it.
+Just inject a `Validator` parameter into your test method... and that is basically all there is to it.
+
+```java
+// Enable the extension
+@ExtendWith(ValidatorExtension.class)
+public class CustomValidatorTest {
+	@Test
+	void validator_accepts_valid_input(Validator validator) {
+		Set<ConstraintViolation<Object>> actual = validator.validate(new SomeFixture("Hello World"));
+
+		assertThat(actual)
+				.isEmpty();
+	}
+}
+
+```
+
+## Customization
+
+Inject a `ValidatorCustomizer` into your setup methods (annotated by @BeforeAll/BeforeEach) and start customizing:
 
 ```java
 // Enable the extension
