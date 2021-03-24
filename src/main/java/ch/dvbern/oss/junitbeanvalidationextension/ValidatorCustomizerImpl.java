@@ -1,10 +1,10 @@
 package ch.dvbern.oss.junitbeanvalidationextension;
 
-import javax.validation.ConstraintValidatorFactory;
 import javax.validation.ValidatorContext;
+import javax.validation.ValidatorFactory;
 
 class ValidatorCustomizerImpl implements ValidatorCustomizer {
-	private ContextCustomizer customizer = ContextCustomizer.identity();
+	private ContextCustomizer customizer = null;
 
 	@Override
 	public void customize(ContextCustomizer customizer) {
@@ -13,9 +13,13 @@ class ValidatorCustomizerImpl implements ValidatorCustomizer {
 
 	public ValidatorContext applyCustomizations(
 			ValidatorContext ctx,
-			ConstraintValidatorFactory defaultFactory
+			ValidatorFactory defaultFactory
 	) {
-		ValidatorContext result = customizer.apply(ctx, defaultFactory);
+		if (customizer == null) {
+			return ctx;
+		}
+
+		ValidatorContext result = customizer.apply(ctx, defaultFactory.getConstraintValidatorFactory());
 
 		return result;
 	}
