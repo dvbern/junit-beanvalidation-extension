@@ -23,7 +23,7 @@ Maven dependency:
 ```
 
 Current version: see [GitHub releases](https://github.com/dvbern/junit-beanvalidation-extension/releases)
-or [Maven Central](https://search.maven.org/search?q=g:ch.dvbern.oss%20a:junit-beanvalidation-extension)
+or [Maven Central](https://search.maven.org/search?q=g:ch.dvbern.oss.junit-beanvalidation-extension%20a:junit-beanvalidation-extension)
 
 ## Basic Usage
 
@@ -122,12 +122,12 @@ All parameters/returns are Non-Null if not explicitly stated by a @Nullable anno
 
 ## Contributing Guidelines
 
-Please read [Contributing.md](CONTRIBUTING.md) for the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md] for the process for submitting pull requests to us.
 
 ## Code of Conduct
 
 One healthy social atmospehere is very important to us, wherefore we rate our Code of Conduct high. For details check
-the file [CodeOfConduct.md](CODE_OF_CONDUCT.md)
+the file [CODE_OF_CONDUCT.md]
 
 ## Authors
 
@@ -138,5 +138,5 @@ participated in this project.
 
 ## License
 
-This project is licensed under the Apache 2.0 License - see the [License.md](LICENSE.md) file for details.
+This project is licensed under the Apache 2.0 License - see the [LICENSE] file for details.
 
