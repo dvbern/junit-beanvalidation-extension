@@ -80,6 +80,8 @@ public class CustomValidatorTest {
 
 ## Common Use-Cases
 
+### Complex ConstraintValidator
+
 This extension comes in quite handy if you have ConstraintValidators that get injected some parameters, e.g.:
 
 ```java
@@ -112,9 +114,15 @@ Integrating the standard BeanValidation ValidatorFactory makes using such Valida
 Using the method described in [Basic Usage](#basic-usage), you now can create your ConstraintValidator instances easily
 in your test setup using Mocks/Stubs/Fakes/whatever.
 
+### Other customizations
+
+The `ValidatorCustomizer` allows modifying all properties of the
+current [ValidationContext](https://docs.oracle.com/javaee/7/api/javax/validation/ValidatorContext.html)
+
 ## Nullability
 
-All parameters/returns are Non-Null if not explicitly stated by a @Nullable annotation!
+All parameters/returns are Non-Null if not explicitly stated by
+a [@Nullable](https://checkerframework.org/api/org/checkerframework/checker/nullness/qual/Nullable.html) annotation!
 
 ## Built With
 
