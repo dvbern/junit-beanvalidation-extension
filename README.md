@@ -32,8 +32,8 @@ Maven dependency:
 
 For available versions: see [Releases](#releases)
 
-If you do not run this library in a container, you might need to add at least these dependencies to make beanvalidation
-work:
+If you do **not** run this library in a container, you might need to add at least these dependencies to make
+beanvalidation work:
 
 ```xml
 
@@ -53,7 +53,7 @@ work:
 		<scope>test</scope>
 	</dependency>
 	<dependency>
-		<!-- validation API implementation -->
+		<!-- validation API implementation (hibernate-validaor is just used as an example) -->
 		<groupId>org.hibernate.validator</groupId>
 		<artifactId>hibernate-validator</artifactId>
 		<version>6.2.0.Final</version>
