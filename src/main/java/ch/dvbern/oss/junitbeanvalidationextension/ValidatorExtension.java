@@ -19,7 +19,6 @@ import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.api.extension.ParameterResolutionException;
 import org.junit.jupiter.api.extension.ParameterResolver;
 
-import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
 
 /**
@@ -51,8 +50,6 @@ public class ValidatorExtension
 	private static final Namespace NAMESPACE = Namespace.create(ValidatorExtension.class);
 	private static final String DEFAULT_FACTORY = "factory";
 	private static final String VALIDATOR = "validator";
-	private static final String FOR_ALL_CUSTOMIZER = "for_all_validators";
-	private static final String FOR_EACH_CUSTOMIZER = "for_each_validators";
 
 	@Override
 	public boolean supportsParameter(ParameterContext parameterContext, ExtensionContext extensionContext)
@@ -69,49 +66,61 @@ public class ValidatorExtension
 			throws ParameterResolutionException {
 
 		Class<?> typeName = parameterContext.getParameter().getType();
+		InvocationOn invocationOn = determinInvocation(parameterContext);
 
 		if (ValidatorCustomizer.class.equals(typeName)) {
-			return resolveCustomValidators(extensionContext);
+			rejectTestMethod(invocationOn);
+			return prepareCustomizer(extensionContext, invocationOn);
 		}
 
 		if (Validator.class.equals(typeName)) {
-			rejectSetupMethods(parameterContext);
+			rejectSetupMethods(invocationOn);
 			return createValidator(extensionContext);
 		}
 
 		throw new IllegalArgumentException("Not supported: " + typeName);
 	}
 
-	private void rejectSetupMethods(ParameterContext parameterContext) {
+	private InvocationOn determinInvocation(ParameterContext parameterContext) {
 		boolean isBeforeAll = parameterContext.getParameter().getDeclaringExecutable()
 				.isAnnotationPresent(BeforeAll.class);
+		if (isBeforeAll) {
+			return InvocationOn.FOR_ALL;
+		}
+
 		boolean isBeforeEach = parameterContext.getParameter().getDeclaringExecutable()
 				.isAnnotationPresent(BeforeEach.class);
+		if (isBeforeEach) {
+			return InvocationOn.FOR_EACH;
+		}
 
-		if (isBeforeAll || isBeforeEach) {
+		return InvocationOn.TEST_METHOD;
+	}
+
+	private void rejectSetupMethods(InvocationOn invocationOn) {
+		if (invocationOn.isSetupMethod()) {
 			throw new IllegalArgumentException(
-					"Injecting the Validator into setup methods (@BeforeAll/BeforeEach) is nott yet supported");
+					"Injecting the Validator into setup methods (@BeforeAll/BeforeEach) is not yet supported");
 		}
-
 	}
 
-	private Object resolveCustomValidators(ExtensionContext context) {
-		@Nullable Object foundEach = resolveCustomValidators(context, FOR_EACH_CUSTOMIZER);
-		if (foundEach != null) {
-			return foundEach;
+	private void rejectTestMethod(InvocationOn invocationOn) {
+		if (invocationOn.isTestMethod()) {
+			throw new IllegalArgumentException(
+					String.format(
+							"Injecting the %s into test methods is not supported",
+							ValidatorCustomizer.class.getSimpleName()));
 		}
-
-		@Nullable Object foundAll = resolveCustomValidators(context, FOR_ALL_CUSTOMIZER);
-		requireNonNull(foundAll, "Junit Extension not setup correctly???");
-
-		return foundAll;
 	}
 
-	private @Nullable Object resolveCustomValidators(ExtensionContext context, String where) {
+	private ValidatorCustomizerImpl prepareCustomizer(ExtensionContext context, InvocationOn where) {
 		Store store = context.getStore(NAMESPACE);
-		Object result = store.get(where);
 
-		return result;
+		ValidatorCustomizerImpl customizer = new ValidatorCustomizerImpl();
+
+		store.put(where.storeKey(), customizer);
+
+		return customizer;
 	}
 
 	@Override
@@ -124,28 +133,25 @@ public class ValidatorExtension
 				.buildValidatorFactory();
 
 		store.put(DEFAULT_FACTORY, defaultFactory);
-		store.put(FOR_ALL_CUSTOMIZER, new ValidatorCustomizerImpl());
 	}
 
 	@Override
 	public void beforeEach(ExtensionContext context) {
-		Store store = context.getStore(NAMESPACE);
-
-		store.put(FOR_EACH_CUSTOMIZER, new ValidatorCustomizerImpl());
+		//		Store store = context.getStore(NAMESPACE);
 	}
 
 	@Override
 	public void afterEach(ExtensionContext context) {
 		Store store = context.getStore(NAMESPACE);
 
-		store.remove(FOR_EACH_CUSTOMIZER);
+		store.remove(InvocationOn.FOR_ALL.storeKey());
 	}
 
 	@Override
 	public void afterAll(ExtensionContext context) {
 		Store store = context.getStore(NAMESPACE);
 
-		store.remove(FOR_ALL_CUSTOMIZER);
+		store.remove(InvocationOn.FOR_ALL.storeKey());
 		store.remove(VALIDATOR);
 
 		ValidatorFactory factory = (ValidatorFactory) store.get(DEFAULT_FACTORY);
@@ -169,22 +175,24 @@ public class ValidatorExtension
 	}
 
 	private ValidatorContext applyCustomizers(ValidatorFactory factory, Store store) {
+		ValidatorCustomizerImpl eachCustomizer = findCustomizer(InvocationOn.FOR_EACH.storeKey(), store);
+		if (eachCustomizer != null) {
+			return eachCustomizer.applyCustomizations(factory.usingContext(), factory);
+		}
 
-		ValidatorContext tmpCtx = findCustomizer(FOR_ALL_CUSTOMIZER, store)
-				.applyCustomizations(factory.usingContext(), factory.getConstraintValidatorFactory());
+		ValidatorCustomizerImpl allCustomizer = findCustomizer(InvocationOn.FOR_ALL.storeKey(), store);
+		if (allCustomizer != null) {
+			return allCustomizer.applyCustomizations(factory.usingContext(), factory);
+		}
 
-		ValidatorContext result = findCustomizer(FOR_EACH_CUSTOMIZER, store)
-				.applyCustomizations(tmpCtx, factory.getConstraintValidatorFactory());
-
-		return result;
+		return factory.usingContext();
 	}
 
-	private ValidatorCustomizerImpl findCustomizer(
+	private @Nullable ValidatorCustomizerImpl findCustomizer(
 			String where,
 			Store store
 	) {
 		ValidatorCustomizerImpl result = (ValidatorCustomizerImpl) store.get(where);
-		requireNonNull(result, format("Could not find CustomValidators in store: %s", where));
 
 		return result;
 	}
