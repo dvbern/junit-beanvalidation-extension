@@ -8,7 +8,15 @@ This enables you to use ConstraintValidators that need special setup (like e.g. 
 
 This project requires Java >= 8.
 
-Installing
+To spare you mostly of dependency hell, this library *does not* include dependencies on any beanvalidation library!
+You have to add these dependencies yourself, see [Installing](#Installing).
+
+## Releases
+
+Current version: see [GitHub releases](https://github.com/dvbern/junit-beanvalidation-extension/releases)
+or [Maven Central](https://search.maven.org/search?q=g:ch.dvbern.oss.junit-beanvalidation-extension%20a:junit-beanvalidation-extension)
+
+### Installing
 
 Maven dependency:
 
@@ -22,8 +30,37 @@ Maven dependency:
 </dependency>
 ```
 
-Current version: see [GitHub releases](https://github.com/dvbern/junit-beanvalidation-extension/releases)
-or [Maven Central](https://search.maven.org/search?q=g:ch.dvbern.oss.junit-beanvalidation-extension%20a:junit-beanvalidation-extension)
+For available versions: see [Releases](#releases)
+
+If you do **not** run this library in a container, you might need to add at least these dependencies to make
+beanvalidation work:
+
+```xml
+
+<dependencies>
+	<dependency>
+		<!-- validation API spec -->
+		<groupId>javax.validation</groupId>
+		<artifactId>validation-api</artifactId>
+		<version>2.0.1.Final</version>
+		<scope>provided</scope>
+	</dependency>
+	<dependency>
+		<!-- transitive requirement of the validtion API -->
+		<groupId>org.glassfish</groupId>
+		<artifactId>javax.el</artifactId>
+		<version>3.0.0</version>
+		<scope>test</scope>
+	</dependency>
+	<dependency>
+		<!-- validation API implementation (hibernate-validaor is just used as an example) -->
+		<groupId>org.hibernate.validator</groupId>
+		<artifactId>hibernate-validator</artifactId>
+		<version>6.2.0.Final</version>
+		<scope>test</scope>
+	</dependency>
+</dependencies>
+```
 
 ## Basic Usage
 
@@ -80,6 +117,8 @@ public class CustomValidatorTest {
 
 ## Common Use-Cases
 
+### Complex ConstraintValidator
+
 This extension comes in quite handy if you have ConstraintValidators that get injected some parameters, e.g.:
 
 ```java
@@ -112,9 +151,15 @@ Integrating the standard BeanValidation ValidatorFactory makes using such Valida
 Using the method described in [Basic Usage](#basic-usage), you now can create your ConstraintValidator instances easily
 in your test setup using Mocks/Stubs/Fakes/whatever.
 
+### Other customizations
+
+The `ValidatorCustomizer` allows modifying all properties of the
+current [ValidationContext](https://docs.oracle.com/javaee/7/api/javax/validation/ValidatorContext.html)
+
 ## Nullability
 
-All parameters/returns are Non-Null if not explicitly stated by a @Nullable annotation!
+All parameters/returns are Non-Null if not explicitly stated by
+a [@Nullable](https://checkerframework.org/api/org/checkerframework/checker/nullness/qual/Nullable.html) annotation!
 
 ## Built With
 

@@ -25,7 +25,7 @@
 
 	<groupId>ch.dvbern.oss.junit-beanvalidation-extension</groupId>
 	<artifactId>junit-beanvalidation-extension</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 
 	<name>DV Bern JUnit BeanValidation Extension</name>
 	<description>Allow for easy injection and customization of a Java BeanValidation Validator into your tests</description>
@@ -78,29 +78,35 @@
 			<version>5.7.1</version>
 			<scope>provided</scope>
 		</dependency>
+
+		<!-- START: minimal dependencies to make this work -->
 		<dependency>
+			<!-- validation API spec -->
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
 			<version>2.0.1.Final</version>
 			<scope>provided</scope>
 		</dependency>
-
 		<dependency>
-			<groupId>javax.enterprise</groupId>
-			<artifactId>cdi-api</artifactId>
-			<version>2.0</version>
+			<!-- transitive requirement of the validtion API -->
+			<groupId>org.glassfish</groupId>
+			<artifactId>javax.el</artifactId>
+			<version>3.0.0</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<!-- validation API implementation (hibernate-validaor is just used as an example) -->
 			<groupId>org.hibernate.validator</groupId>
 			<artifactId>hibernate-validator</artifactId>
 			<version>6.2.0.Final</version>
 			<scope>test</scope>
 		</dependency>
+		<!-- END: minimal dependencies to make this work -->
+
 		<dependency>
-			<groupId>org.glassfish</groupId>
-			<artifactId>javax.el</artifactId>
-			<version>3.0.0</version>
+			<groupId>javax.enterprise</groupId>
+			<artifactId>cdi-api</artifactId>
+			<version>2.0</version>
 			<scope>test</scope>
 		</dependency>
 
