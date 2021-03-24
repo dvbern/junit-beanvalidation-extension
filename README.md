@@ -46,7 +46,7 @@ beanvalidation work:
 		<scope>provided</scope>
 	</dependency>
 	<dependency>
-		<!-- required by the validtion API -->
+		<!-- transitive requirement of the validtion API -->
 		<groupId>org.glassfish</groupId>
 		<artifactId>javax.el</artifactId>
 		<version>3.0.0</version>

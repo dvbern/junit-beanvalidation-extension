@@ -90,14 +90,14 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<!-- required by the validtion API -->
+			<!-- transitive requirement of the validtion API -->
 			<groupId>org.glassfish</groupId>
 			<artifactId>javax.el</artifactId>
 			<version>3.0.0</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<!-- validation API implementation -->
+			<!-- validation API implementation (hibernate-validaor is just used as an example) -->
 			<groupId>org.hibernate.validator</groupId>
 			<artifactId>hibernate-validator</artifactId>
 			<version>6.2.0.Final</version>
