@@ -20,12 +20,12 @@
 	<parent>
 		<groupId>ch.dvbern.oss.maven</groupId>
 		<artifactId>parent</artifactId>
-		<version>3.0.2</version>
+		<version>3.0.5</version>
 	</parent>
 
 	<groupId>ch.dvbern.oss.junit-beanvalidation-extension</groupId>
 	<artifactId>junit-beanvalidation-extension</artifactId>
-	<version>1.0.1</version>
+	<version>1.0.2</version>
 
 	<name>DV Bern JUnit BeanValidation Extension</name>
 	<description>Allow for easy injection and customization of a Java BeanValidation Validator into your tests</description>
@@ -133,16 +133,6 @@
 	<build>
 		<pluginManagement>
 			<plugins>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-javadoc-plugin</artifactId>
-					<version>${maven-javadoc-plugin.version}</version>
-					<configuration>
-						<doclint>none</doclint>
-						<detectJavaApiLink>false</detectJavaApiLink>
-					</configuration>
-				</plugin>
-
 				<plugin>
 					<groupId>ch.dvbern.oss.maven.jgitflow</groupId>
 					<artifactId>jgitflow-maven-plugin</artifactId>
