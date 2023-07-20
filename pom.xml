@@ -22,7 +22,7 @@
 	<parent>
 		<groupId>ch.dvbern.oss.maven</groupId>
 		<artifactId>parent</artifactId>
-		<version>3.0.5</version>
+		<version>5.0.0</version>
 	</parent>
 
 	<groupId>ch.dvbern.oss.junit-beanvalidation-extension</groupId>
@@ -64,14 +64,15 @@
 	</scm>
 
 	<properties>
-
+		<maven-compiler-plugin.source>11</maven-compiler-plugin.source>
+		<maven-compiler-plugin.target>11</maven-compiler-plugin.target>
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.checkerframework</groupId>
 			<artifactId>checker-qual</artifactId>
-			<version>3.11.0</version>
+			<version>3.36.0</version>
 		</dependency>
 
 		<dependency>
@@ -97,6 +98,13 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<!-- we need an implementation for el-api -->
+			<groupId>org.glassfish</groupId>
+			<artifactId>jakarta.el</artifactId>
+			<version>4.0.2</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<!-- validation API implementation (hibernate-validaor is just used as an example) -->
 			<groupId>org.hibernate.validator</groupId>
 			<artifactId>hibernate-validator</artifactId>
@@ -113,15 +121,15 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.assertj</groupId>
-			<artifactId>assertj-core</artifactId>
-			<version>3.24.2</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
 			<version>5.4.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
+			<version>3.24.2</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
