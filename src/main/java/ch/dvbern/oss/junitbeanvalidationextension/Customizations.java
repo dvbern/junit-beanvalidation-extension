@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.function.Function;
 
-import javax.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidator;
 
 import static java.util.stream.Collectors.toMap;
 

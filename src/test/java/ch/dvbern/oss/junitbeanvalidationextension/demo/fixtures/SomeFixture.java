@@ -1,6 +1,6 @@
 package ch.dvbern.oss.junitbeanvalidationextension.demo.fixtures;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 @CustomConstraint
 public class SomeFixture {

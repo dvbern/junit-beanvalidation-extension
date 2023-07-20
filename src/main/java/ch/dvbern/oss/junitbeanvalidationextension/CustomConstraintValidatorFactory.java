@@ -3,8 +3,8 @@ package ch.dvbern.oss.junitbeanvalidationextension;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorFactory;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorFactory;
 
 import static java.util.Objects.requireNonNull;
 
