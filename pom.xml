@@ -152,6 +152,13 @@
 						<detectJavaApiLink>false</detectJavaApiLink>
 					</configuration>
 				</plugin>
+				<plugin>
+					<groupId>ch.dvbern.oss.maven.jgitflow</groupId>
+					<artifactId>jgitflow-maven-plugin</artifactId>
+					<configuration>
+						<enableSshAgent>false</enableSshAgent>
+					</configuration>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
