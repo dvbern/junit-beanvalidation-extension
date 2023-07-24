@@ -156,7 +156,10 @@
 					<groupId>ch.dvbern.oss.maven.jgitflow</groupId>
 					<artifactId>jgitflow-maven-plugin</artifactId>
 					<configuration>
-						<enableSshAgent>false</enableSshAgent>
+						<flowInitContext>
+							<!-- github changed default names -->
+							<masterBranchName>main</masterBranchName>
+						</flowInitContext>
 					</configuration>
 				</plugin>
 			</plugins>
