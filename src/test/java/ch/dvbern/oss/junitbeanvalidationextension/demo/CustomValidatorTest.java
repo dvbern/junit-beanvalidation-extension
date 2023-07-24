@@ -2,14 +2,13 @@ package ch.dvbern.oss.junitbeanvalidationextension.demo;
 
 import java.util.Set;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.Validator;
-
 import ch.dvbern.oss.junitbeanvalidationextension.Customizations;
 import ch.dvbern.oss.junitbeanvalidationextension.ValidatorCustomizer;
 import ch.dvbern.oss.junitbeanvalidationextension.ValidatorExtension;
 import ch.dvbern.oss.junitbeanvalidationextension.demo.fixtures.CustomConstraintValidator;
 import ch.dvbern.oss.junitbeanvalidationextension.demo.fixtures.SomeFixture;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validator;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;

@@ -1,7 +1,7 @@
 package ch.dvbern.oss.junitbeanvalidationextension;
 
-import javax.validation.ValidatorContext;
-import javax.validation.ValidatorFactory;
+import jakarta.validation.ValidatorContext;
+import jakarta.validation.ValidatorFactory;
 
 class ValidatorCustomizerImpl implements ValidatorCustomizer {
 	private ContextCustomizer customizer = null;

@@ -2,8 +2,8 @@ package ch.dvbern.oss.junitbeanvalidationextension;
 
 import java.util.function.BiFunction;
 
-import javax.validation.ConstraintValidatorFactory;
-import javax.validation.ValidatorContext;
+import jakarta.validation.ConstraintValidatorFactory;
+import jakarta.validation.ValidatorContext;
 
 @FunctionalInterface
 public interface ContextCustomizer extends BiFunction<ValidatorContext, ConstraintValidatorFactory, ValidatorContext> {

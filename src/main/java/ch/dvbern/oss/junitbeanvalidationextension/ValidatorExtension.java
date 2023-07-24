@@ -1,10 +1,9 @@
 package ch.dvbern.oss.junitbeanvalidationextension;
 
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorContext;
-import javax.validation.ValidatorFactory;
-
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorContext;
+import jakarta.validation.ValidatorFactory;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -109,7 +108,8 @@ public class ValidatorExtension
 			throw new IllegalArgumentException(
 					String.format(
 							"Injecting the %s into test methods is not supported",
-							ValidatorCustomizer.class.getSimpleName()));
+							ValidatorCustomizer.class.getSimpleName()
+					));
 		}
 	}
 
@@ -165,7 +165,8 @@ public class ValidatorExtension
 
 		ValidatorFactory factory = requireNonNull(
 				(ValidatorFactory) store.get(DEFAULT_FACTORY),
-				"ValidatorFactory instance not found in Test context store???");
+				"ValidatorFactory instance not found in Test context store???"
+		);
 
 		ValidatorContext ctx = applyCustomizers(factory, store);
 
