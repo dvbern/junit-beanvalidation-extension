@@ -23,7 +23,7 @@ Maven dependency:
 ```xml
 
 <dependency>
-	<groupId>ch.dvbern.oss</groupId>
+	<groupId>ch.dvbern.oss.junit-beanvalidation-extension</groupId>
 	<artifactId>junit-beanvalidation-extension</artifactId>
 	<version>see-github-releases</version>
 	<scope>test</scope>
