@@ -1,9 +1,5 @@
 package ch.dvbern.oss.junitbeanvalidationextension;
 
-import jakarta.validation.Validation;
-import jakarta.validation.Validator;
-import jakarta.validation.ValidatorContext;
-import jakarta.validation.ValidatorFactory;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,6 +14,11 @@ import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.api.extension.ParameterResolutionException;
 import org.junit.jupiter.api.extension.ParameterResolver;
 
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorContext;
+import jakarta.validation.ValidatorFactory;
+
 import static java.util.Objects.requireNonNull;
 
 /**
@@ -26,7 +27,7 @@ import static java.util.Objects.requireNonNull;
  * See also {@link ValidatorCustomizer} and {@link Customizations} for more details
  * on how to customize the Validator (e.g. use specific/custom validators).
  * </p>
- *
+ * <p>
  * Typical usage:
  * <pre>{@code
  * @BeforeEach
@@ -55,7 +56,7 @@ public class ValidatorExtension
 			throws ParameterResolutionException {
 		Class<?> type = parameterContext.getParameter().getType();
 		boolean result = Validator.class.equals(type)
-				|| ValidatorCustomizer.class.equals(type);
+						 || ValidatorCustomizer.class.equals(type);
 
 		return result;
 	}
@@ -73,7 +74,6 @@ public class ValidatorExtension
 		}
 
 		if (Validator.class.equals(typeName)) {
-			rejectSetupMethods(invocationOn);
 			return createValidator(extensionContext);
 		}
 
