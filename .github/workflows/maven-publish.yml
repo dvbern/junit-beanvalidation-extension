@@ -30,7 +30,6 @@ jobs:
 
       - name: Publish to Maven Central Repo
         run: |
-          env | sort
           ./mvnw --batch-mode -Pmaven-central deploy
         env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
