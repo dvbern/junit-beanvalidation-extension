@@ -29,7 +29,9 @@ jobs:
           cache: 'maven'
 
       - name: Publish to Maven Central Repo
-        run: ./mvnw --batch-mode -Pmaven-central deploy
+        run: |
+          env | sort
+          ./mvnw --batch-mode -Pmaven-central deploy
         env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
