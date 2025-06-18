@@ -19,13 +19,13 @@
 
 	<parent>
 		<groupId>ch.dvbern.oss.maven</groupId>
-		<artifactId>parent</artifactId>
-		<version>5.0.0</version>
+		<artifactId>parent-minimal</artifactId>
+		<version>3.0.0</version>
 	</parent>
 
 	<groupId>ch.dvbern.oss.junit-beanvalidation-extension</groupId>
 	<artifactId>junit-beanvalidation-extension</artifactId>
-	<version>2.1.0</version>
+	<version>3.0.0</version>
 
 	<name>DV Bern JUnit BeanValidation Extension</name>
 	<description>Allow for easy injection and customization of a Java BeanValidation Validator into your tests</description>
@@ -62,8 +62,12 @@
 	</scm>
 
 	<properties>
-		<maven-compiler-plugin.source>11</maven-compiler-plugin.source>
-		<maven-compiler-plugin.target>11</maven-compiler-plugin.target>
+		<maven-compiler-plugin.javaversion>11</maven-compiler-plugin.javaversion>
+		<maven-compiler-plugin.javaversion>11</maven-compiler-plugin.javaversion>
+		<maven-enforcer-plugin.requireMavenVersion.version>[3.9.9,)</maven-enforcer-plugin.requireMavenVersion.version>
+		<maven-enforcer-plugin.requireJavaVersion.version>${maven-compiler-plugin.javaversion}</maven-enforcer-plugin.requireJavaVersion.version>
+
+		<maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
 	</properties>
 
 	<dependencies>
@@ -163,4 +167,61 @@
 			</plugins>
 		</pluginManagement>
 	</build>
+
+	<!-- <editor-fold desc="distributionManagement" defaultstate="collapsed"> -->
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+	<!-- </editor-fold> -->
+
+	<profiles>
+		<!-- <editor-fold desc="maven-central" defaultstate="collapsed"> -->
+		<profile>
+			<id>maven-central</id>
+			<properties>
+				<skip-javadoc />
+			</properties>
+			<build>
+				<plugins>
+					<!-- <editor-fold desc=" maven-gpg-plugin " defaultstate="collapsed"> -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>${maven-gpg-plugin.version}</version>
+						<configuration>
+							<!-- Prevent gpg from using pinentry programs -->
+							<gpgArguments>
+								<arg>--pinentry-mode</arg>
+								<arg>loopback</arg>
+							</gpgArguments>
+						</configuration>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<!-- </editor-fold> -->
+
+					<!-- <editor-fold desc="exus-staging-maven-plugin" defaultstate="collapsed"> -->
+					<plugin>
+						<groupId>org.sonatype.plugins</groupId>
+						<artifactId>nexus-staging-maven-plugin</artifactId>
+						<configuration>
+							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+						</configuration>
+					</plugin>
+					<!-- </editor-fold> -->
+				</plugins>
+			</build>
+		</profile>
+		<!-- </editor-fold> -->
+	</profiles>
 </project>
