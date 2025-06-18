@@ -21,8 +21,8 @@
 
 	<parent>
 		<groupId>ch.dvbern.oss.maven</groupId>
-		<artifactId>parent</artifactId>
-		<version>5.0.0</version>
+		<artifactId>parent-minimal</artifactId>
+		<version>3.0.0</version>
 	</parent>
 
 	<groupId>ch.dvbern.oss.junit-beanvalidation-extension</groupId>
@@ -64,10 +64,10 @@
 	</scm>
 
 	<properties>
-		<maven-compiler-plugin.source>11</maven-compiler-plugin.source>
-		<maven-compiler-plugin.target>11</maven-compiler-plugin.target>
+		<maven-compiler-plugin.javaversion>11</maven-compiler-plugin.javaversion>
+		<maven-compiler-plugin.javaversion>11</maven-compiler-plugin.javaversion>
 		<maven-enforcer-plugin.requireMavenVersion.version>[3.9.9,)</maven-enforcer-plugin.requireMavenVersion.version>
-		<maven-enforcer-plugin.requireJavaVersion.version>${maven-compiler-plugin.source}</maven-enforcer-plugin.requireJavaVersion.version>
+		<maven-enforcer-plugin.requireJavaVersion.version>${maven-compiler-plugin.javaversion}</maven-enforcer-plugin.requireJavaVersion.version>
 	</properties>
 
 	<dependencies>
@@ -167,6 +167,15 @@
 			</plugins>
 		</pluginManagement>
 	</build>
+
+	<!-- <editor-fold desc="distributionManagement" defaultstate="collapsed"> -->
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+	<!-- </editor-fold> -->
 
 	<profiles>
 		<!-- <editor-fold desc="maven-central" defaultstate="collapsed"> -->
