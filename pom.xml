@@ -25,7 +25,7 @@
 
 	<groupId>ch.dvbern.oss.junit-beanvalidation-extension</groupId>
 	<artifactId>junit-beanvalidation-extension</artifactId>
-	<version>3.0.1-SNAPSHOT</version>
+	<version>3.0.1</version>
 
 	<name>DV Bern JUnit BeanValidation Extension</name>
 	<description>Allow for easy injection and customization of a Java BeanValidation Validator into your tests</description>
