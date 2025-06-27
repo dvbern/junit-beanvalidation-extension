@@ -14,7 +14,9 @@
   ~ limitations under the License.
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -66,8 +68,6 @@
 		<maven-compiler-plugin.javaversion>11</maven-compiler-plugin.javaversion>
 		<maven-enforcer-plugin.requireMavenVersion.version>[3.9.9,)</maven-enforcer-plugin.requireMavenVersion.version>
 		<maven-enforcer-plugin.requireJavaVersion.version>${maven-compiler-plugin.javaversion}</maven-enforcer-plugin.requireJavaVersion.version>
-
-		<maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
 	</properties>
 
 	<dependencies>
@@ -180,35 +180,24 @@
 		<profile>
 			<id>maven-central</id>
 			<properties>
-				<skip-javadoc />
+				<skip-javadoc/>
 			</properties>
 			<build>
 				<plugins>
-					<!-- <editor-fold desc=" maven-gpg-plugin " defaultstate="collapsed"> -->
+					<!-- <editor-fold desc="maven-gpg-plugin" defaultstate="collapsed"> -->
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-gpg-plugin</artifactId>
-						<version>${maven-gpg-plugin.version}</version>
+						<version>3.2.7</version>
 						<configuration>
-							<!-- Prevent gpg from using pinentry programs -->
-							<gpgArguments>
-								<arg>--pinentry-mode</arg>
-								<arg>loopback</arg>
-							</gpgArguments>
+							<signer>bc</signer>
+							<keyEnvName>MAVEN_GPG_PRIVATE_KEY</keyEnvName>
+							<passphraseEnvName>MAVEN_GPG_PASSPHRASE</passphraseEnvName>
 						</configuration>
-						<executions>
-							<execution>
-								<id>sign-artifacts</id>
-								<phase>verify</phase>
-								<goals>
-									<goal>sign</goal>
-								</goals>
-							</execution>
-						</executions>
 					</plugin>
 					<!-- </editor-fold> -->
 
-					<!-- <editor-fold desc="exus-staging-maven-plugin" defaultstate="collapsed"> -->
+					<!-- <editor-fold desc="nexus-staging-maven-plugin" defaultstate="collapsed"> -->
 					<plugin>
 						<groupId>org.sonatype.plugins</groupId>
 						<artifactId>nexus-staging-maven-plugin</artifactId>
