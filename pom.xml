@@ -25,7 +25,7 @@
 
 	<groupId>ch.dvbern.oss.junit-beanvalidation-extension</groupId>
 	<artifactId>junit-beanvalidation-extension</artifactId>
-	<version>3.0.1</version>
+	<version>3.0.2</version>
 
 	<name>DV Bern JUnit BeanValidation Extension</name>
 	<description>Allow for easy injection and customization of a Java BeanValidation Validator into your tests</description>
@@ -66,8 +66,6 @@
 		<maven-compiler-plugin.javaversion>11</maven-compiler-plugin.javaversion>
 		<maven-enforcer-plugin.requireMavenVersion.version>[3.9.9,)</maven-enforcer-plugin.requireMavenVersion.version>
 		<maven-enforcer-plugin.requireJavaVersion.version>${maven-compiler-plugin.javaversion}</maven-enforcer-plugin.requireJavaVersion.version>
-
-		<maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
 	</properties>
 
 	<dependencies>
@@ -184,31 +182,20 @@
 			</properties>
 			<build>
 				<plugins>
-					<!-- <editor-fold desc=" maven-gpg-plugin " defaultstate="collapsed"> -->
+					<!-- <editor-fold desc="maven-gpg-plugin" defaultstate="collapsed"> -->
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-gpg-plugin</artifactId>
-						<version>${maven-gpg-plugin.version}</version>
+						<version>3.2.7</version>
 						<configuration>
-							<!-- Prevent gpg from using pinentry programs -->
-							<gpgArguments>
-								<arg>--pinentry-mode</arg>
-								<arg>loopback</arg>
-							</gpgArguments>
+							<signer>bc</signer>
+							<keyEnvName>MAVEN_GPG_PRIVATE_KEY</keyEnvName>
+							<passphraseEnvName>MAVEN_GPG_PASSPHRASE</passphraseEnvName>
 						</configuration>
-						<executions>
-							<execution>
-								<id>sign-artifacts</id>
-								<phase>verify</phase>
-								<goals>
-									<goal>sign</goal>
-								</goals>
-							</execution>
-						</executions>
 					</plugin>
 					<!-- </editor-fold> -->
 
-					<!-- <editor-fold desc="exus-staging-maven-plugin" defaultstate="collapsed"> -->
+					<!-- <editor-fold desc="nexus-staging-maven-plugin" defaultstate="collapsed"> -->
 					<plugin>
 						<groupId>org.sonatype.plugins</groupId>
 						<artifactId>nexus-staging-maven-plugin</artifactId>
